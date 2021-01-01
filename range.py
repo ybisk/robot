@@ -3,6 +3,8 @@ from PIL import Image, ImageDraw
 import scipy.misc
 import numpy as np
 
+fname = sys.argv[1].split(".gcode")[0]
+stats = open("{}.txt".format(fname), 'wt')
 lines = [line.strip().split() for line in open(sys.argv[1])]
 vals = {"X":[], "Y":[], "Z":[]}
 Z = 0
@@ -19,13 +21,16 @@ for line in lines:
           vals[d].append(v)
 
 print("Ranges:")
+stats.write("Ranges:\n")
 for d in vals:
   print("{:3} {:4} {:4}".format(d, min(vals[d]), max(vals[d])))
+  stats.write("{:3} {:4} {:4}\n".format(d, min(vals[d]), max(vals[d])))
 
 def ctr(vs):
   return (max(vs) + min(vs))/2
 
 print("Center:\n {:4.2f} {:4.2f} {:4.2f}".format(ctr(vals["X"]), ctr(vals["Y"]), ctr(vals["Z"])))
+stats.write("Center:\n {:4.2f} {:4.2f} {:4.2f}\n".format(ctr(vals["X"]), ctr(vals["Y"]), ctr(vals["Z"])))
 
 
 BL = int(10*min(vals["X"])), int(10*min(vals["Y"]))
@@ -63,4 +68,5 @@ for line in lines:
       img[start[1] - BL[1]][i][color] = 0
 
 im = Image.fromarray(np.flipud(img.astype(np.uint8)))
-im.save("outfile.jpg")
+im.save("{}.jpg".format(fname))
+stats.close()
