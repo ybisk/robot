@@ -4,4 +4,4 @@
 
 `python send-gcode.py` iterates through a gcode file (doesn't wait properly)
 
-`python range.py` calculate statistics about a gcode file for helping with placement
+`python range.py` calculate statistics about a gcode file for helping with placement and draw image/path
