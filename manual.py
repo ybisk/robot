@@ -1,0 +1,76 @@
+import serial, time, sys
+from tqdm import tqdm, trange
+
+
+ser = serial.Serial(port='/dev/ttyACM0', 
+                    baudrate = 115200, 
+                    parity=serial.PARITY_NONE, 
+                    stopbits=serial.STOPBITS_ONE, 
+                    bytesize=serial.EIGHTBITS, 
+                    timeout=1)
+
+def wait_ok(ctype):
+    x = ''
+    time_now = time.time()
+    
+    wait_time = 0.5
+    while 'busy' in x or time.time() - time_now < wait_time:
+        x=bytes.decode(ser.readline().strip(), errors="ignore")
+        if len(x) > 0:
+            if x == "o":
+                x = "ok"
+            elif 'ok' not in x and \
+                 'wait' not in x and \
+                 x[:1] != 'M':
+                print(len(x.strip()), x)
+        time.sleep(0.01)
+    
+def serial_write(cmd):
+    ser.write(str.encode("{cmd}\n\r".format(cmd=cmd)))
+    wait_ok(ctype)
+
+def send(cmd):
+    cmd = cmd.split(";")[0]
+    if len(cmd.strip()) < 1:
+        return
+    serial_write(cmd)
+
+
+send('M1112') # Go to home position
+
+send('G90') # Absolute positioning
+
+# G92.1 reset the working height. 
+send('G92.1') # Machine coordinate system
+
+send('G0 X0 Y200 Z0') # 0 200 0
+
+try: 
+  while True:
+      a = input("location: ").lower()
+      if "laser" in a:
+        a = a.split()
+        if len(a) == 2:
+          send('M3 S{}'.format(a[1]) # set laser strength
+        else:
+          send('M3 S5') # very light laser
+      elif "off" in a:
+        send('M888 P15') # turn off laser
+      elif "pick" in a:
+        send("M1000") # air pump box to pump in
+      elif "place" in a:
+        send("M1002") # air pump box to release air
+      elif "blow" in a:
+        send("M1001") # air pump box to pump out
+      elif "stop" in a:
+        send("M1003") # stop air pump box
+      else:
+        send(a.strip())
+finally:
+  print("Cleaning up!")
+  send('M400') # All GCode processing to pause and wait in a loop until all moves in the planner are completed.
+  send('M5') # Done
+  send('M888 P15') # turn off laser
+  send('M1112') # Go to home position
+
+exit()
