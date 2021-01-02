@@ -26,7 +26,7 @@ for x in tqdm(range(X[0], X[1]+inc, inc), ncols=50):
             rbt.move(x,y,z)
             val, img = cam.read()
             if val:
-                cv2.imwrite('vision_training/imgs/{}.png'.format(datum),img)
+                cv2.imwrite('vision_training/imgs/{0:04d}.png'.format(datum),img)
                 labels.write("{} {:4.2f} {:4.2f} {:4.2f}\n".format(datum, x,y,z))
                 datum += 1
 
