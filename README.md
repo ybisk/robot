@@ -7,7 +7,7 @@
 `python range.py` calculate statistics about a gcode file for helping with placement and draw image/path
 
 
-# Arm Farm Setup
+# Arm Farm Hardware Setup
 **Table**: 
 - $11.52: [2ft x 2ft block of wood](https://www.homedepot.com/p/Sanded-Plywood-Common-23-32-in-x-2-ft-x-2-ft-Actual-0-703-in-x-23-75-in-x-23-75-in-300950/202093835)
 - $3.68 * 2: [1in x 36in Wood dowel](https://www.homedepot.com/p/8316U-1-in-x-36-in-Hardwood-Square-Dowel-10001818/203334085)
@@ -37,3 +37,17 @@ Execute [Wide Grid GCode](gcodes/WideGrid.gcode) or import two adjacent copies o
 
 **Blocks**
 Small blocks can me made by cutting up the remaining Dowel 
+
+**Overhead Light**
+Recommend some overhead or bar lamp lighting (minimal shadows) to evenly light the surface
+
+# Arm Farm Compute
+**Computer**: 
+- $119.95 for a [Raspberry Pi 4](https://www.canakit.com/raspberry-pi-4-4gb.html) Kit with 4GB of RAM
+- $29.95 for [8mp Raspberry Pi Camera](https://www.canakit.com/raspberry-pi-noir-camera-v2-8mp.html)
+- $5.40 for [1meter camera cable](https://smile.amazon.com/gp/product/B07J57LQQS?pf_rd_r=XAAVCRCQN91EM9JG6Y1Q&pf_rd_p=5ae2c7f8-e0c6-4f35-9071-dc3240e894a8)
+- *Misc* $26.99 for [USB/Bluetooth Keyboard & Mouse](https://smile.amazon.com/gp/product/B07LH6TZSZ/ref=ppx_yo_dt_b_asin_title_o05_s00?ie=UTF8&psc=1)
+- *Misc* $84.99 for [Small touchscreen](https://smile.amazon.com/gp/product/B07L6WT77H/ref=ppx_yo_dt_b_asin_title_o05_s01?ie=UTF8&psc=1) is completely unnecessary
+
+*Cost*:
+$155.30 or ... more if you buy more stuff
