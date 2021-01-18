@@ -31,6 +31,8 @@ $25.85 or ~$30 with glue and screws and <1hr of labor
 *Grid*: 
 Execute [Wide Grid GCode](gcodes/WideGrid.gcode) or import two adjacent copies of [Grid svg](gcodes/WideGrid_half.svg) to burn a 400mm wide by 160mm tall grid onto the table. Note: Use 90% of laser or lines will be very light/spotty.
 
+![Basic resulting robot setup](images/BasicSetup.jpg)
+
 **Robot is [Rotrics DexArm](https://www.rotrics.com/products/dexarm)**:
 - $999 USD for Luxury Kit (incl pneumatic gripper and laser) or 
 - $659 USD for Base kit + $259 USD for [Pneumatic Gripper](https://www.rotrics.com/products/pneumatic-kit)
