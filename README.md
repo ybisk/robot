@@ -33,7 +33,7 @@ Execute [Wide Grid GCode](gcodes/WideGrid.gcode) or import two adjacent copies o
 
 **Robot is [Rotrics DexArm](https://www.rotrics.com/products/dexarm)**:
 - $999 USD for Luxury Kit (incl pneumatic gripper and laser) or 
-- $659 USD for Base kit + $259 USD for [Pnuumatic Gripper](https://www.rotrics.com/products/pneumatic-kit)
+- $659 USD for Base kit + $259 USD for [Pneumatic Gripper](https://www.rotrics.com/products/pneumatic-kit)
 
 **Blocks**
 Small blocks can me made by cutting up the remaining Dowel 
