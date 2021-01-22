@@ -1,13 +1,7 @@
-# Rotrics Code
-
-`python manual.py` for issuing individual test commands
-
-`python send-gcode.py` iterates through a gcode file (doesn't wait properly)
-
-`python range.py` calculate statistics about a gcode file for helping with placement and draw image/path
+The following are materials and setup instructions for a very simple educational "arm farm" based on a Rotrics DexArm and a Raspberry Pi.
 
 
-# Arm Farm Hardware Setup
+## Arm Farm Hardware Setup
 **Table**: 
 - $11.52: [2ft x 2ft block of wood](https://www.homedepot.com/p/Sanded-Plywood-Common-23-32-in-x-2-ft-x-2-ft-Actual-0-703-in-x-23-75-in-x-23-75-in-300950/202093835)
 - $3.68 * 2: [1in x 36in Wood dowel](https://www.homedepot.com/p/8316U-1-in-x-36-in-Hardwood-Square-Dowel-10001818/203334085)
@@ -31,6 +25,8 @@ $25.85 or ~$30 with glue and screws and <1hr of labor
 *Grid*: 
 Execute [Wide Grid GCode](gcodes/WideGrid.gcode) or import two adjacent copies of [Grid svg](gcodes/WideGrid_half.svg) to burn a 400mm wide by 160mm tall grid onto the table. Note: Use 90% of laser or lines will be very light/spotty.
 
+![Basic resulting robot setup](images/BasicSetup.jpg)
+
 **Robot is [Rotrics DexArm](https://www.rotrics.com/products/dexarm)**:
 - $999 USD for Luxury Kit (incl pneumatic gripper and laser) or 
 - $659 USD for Base kit + $259 USD for [Pneumatic Gripper](https://www.rotrics.com/products/pneumatic-kit)
@@ -41,7 +37,7 @@ Small blocks can me made by cutting up the remaining Dowel
 **Overhead Light**
 Recommend some overhead or bar lamp lighting (minimal shadows) to evenly light the surface
 
-# Arm Farm Compute
+## Arm Farm Compute
 **Computer**: 
 - $119.95 for a [Raspberry Pi 4](https://www.canakit.com/raspberry-pi-4-4gb.html) Kit with 4GB of RAM
 - $29.95 for [8mp Raspberry Pi Camera](https://www.canakit.com/raspberry-pi-noir-camera-v2-8mp.html)
@@ -51,3 +47,17 @@ Recommend some overhead or bar lamp lighting (minimal shadows) to evenly light t
 
 *Cost*:
 $155.30 or ... more if you buy more stuff
+
+
+## Camera Connect
+- *Cheap*: Tape or Zip-ties
+- *A little more*: 3D printed clips (CAD coming soon)
+
+
+## Rotrics Code
+
+`python manual.py` for issuing individual test commands
+
+`python send-gcode.py` iterates through a gcode file (doesn't wait properly)
+
+`python range.py` calculate statistics about a gcode file for helping with placement and draw image/path
