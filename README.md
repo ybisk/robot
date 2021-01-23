@@ -25,7 +25,7 @@ $25.85 or ~$30 with glue and screws and <1hr of labor
 *Grid*: 
 Execute [Wide Grid GCode](gcodes/WideGrid.gcode) or import two adjacent copies of [Grid svg](gcodes/WideGrid_half.svg) to burn a 400mm wide by 160mm tall grid onto the table. Note: Use 90% of laser or lines will be very light/spotty.
 
-![Basic resulting robot setup](images/BasicSetup.jpg)
+<img src="images/BasicSetup.jpg" width="300">
 
 **Robot is [Rotrics DexArm](https://www.rotrics.com/products/dexarm)**:
 - $999 USD for Luxury Kit (incl pneumatic gripper and laser) or 
@@ -48,11 +48,11 @@ Recommend some overhead or bar lamp lighting (minimal shadows) to evenly light t
 *Cost*:
 $155.30 or ... more if you buy more stuff
 
-
 ## Camera Connect
 - *Cheap*: Tape or Zip-ties
-- *A little more*: 3D printed clips (CAD coming soon)
+- *A little more*: 3D printed clips see [CAD Directory](CAD) for files.  These can be easily printed and and tiled around the provided 3D printer platform if DexArm attachment was purchased:
 
+<img src="images/DexArmWithClips.jpg" width="300">
 
 ## Rotrics Code
 
