@@ -56,6 +56,8 @@ $155.30 or ... more if you buy more stuff
 
 `sudo usermod -a -G dialout ybisk`
 
+Torchvision `git clone https://github.com/pytorch/vision.git -b v0.8.2; cd vision; sudo python3 setup.py install`
+
 ## Rotrics Code
 
 `python manual.py` for issuing individual test commands
