@@ -27,7 +27,7 @@ norm = T.Normalize(mean=[0.485, 0.456, 0.406],
                         std=[0.229, 0.224, 0.225])
 norm_img = T.Compose([T.Resize(256), T.CenterCrop(224), T.ToTensor(), norm])
 
-fnames = ["vision_training/imgs_orig/{}.png".format(line.strip().split()[0]) for line in open("vision_training/labels.txt")]
+fnames = ["vision_training/imgs/{}.png".format(line.strip().split()[0]) for line in open("vision_training/labels.txt")]
 labels = [norm_lbl([float(v) for v in line.strip().split()[1:]]) for line in open("vision_training/labels.txt")]
 images = [norm_img(Image.open(fname)) for fname in fnames]
 trainloader = torch.utils.data.DataLoader(list(zip(images, labels)), batch_size=8, shuffle=True, num_workers=2)

@@ -9,7 +9,7 @@ ser = serial.Serial(port='/dev/ttyACM0',
                     bytesize=serial.EIGHTBITS, 
                     timeout=1)
 
-def wait_ok(ctype):
+def wait_ok():
     x = ''
     time_now = time.time()
     
@@ -26,8 +26,8 @@ def wait_ok(ctype):
         time.sleep(0.01)
     
 def serial_write(cmd):
-    ser.write(str.encode("{cmd}\n\r".format(cmd=cmd)))
-    wait_ok(ctype)
+    ser.write(str.encode(f"{cmd}\n\r"))
+    wait_ok()
 
 def send(cmd):
     cmd = cmd.split(";")[0]
@@ -47,11 +47,11 @@ send('G0 X0 Y200 Z0') # 0 200 0
 
 try: 
   while True:
-      a = input("location: ").lower()
+      a = input("location: ")
       if "laser" in a:
         a = a.split()
         if len(a) == 2:
-          send('M3 S{}'.format(a[1]) # set laser strength
+          send('M3 S{}'.format(a[1])) # set laser strength
         else:
           send('M3 S5') # very light laser
       elif "off" in a:
