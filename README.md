@@ -54,6 +54,8 @@ $155.30 or ... more if you buy more stuff
 
 <img src="images/DexArmWithClips.jpg" width="300">
 
+`sudo usermod -a -G dialout ybisk`
+
 ## Rotrics Code
 
 `python manual.py` for issuing individual test commands
