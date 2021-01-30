@@ -10,7 +10,8 @@ import torchvision
 import torchvision.models as models
 from torchvision import transforms as T
 
-
+fldr = sys.argv[1]
+print("Training with {}".format(fldr))
 
 # [-40, 40], [240, 300], [-40, 0]
 ranges = np.array([80, 60, 40]).astype(np.float32)
@@ -27,8 +28,8 @@ norm = T.Normalize(mean=[0.485, 0.456, 0.406],
                         std=[0.229, 0.224, 0.225])
 norm_img = T.Compose([T.Resize(256), T.CenterCrop(224), T.ToTensor(), norm])
 
-fnames = ["vision_training/imgs/{}.png".format(line.strip().split()[0]) for line in open("vision_training/labels.txt")]
-labels = [norm_lbl([float(v) for v in line.strip().split()[1:]]) for line in open("vision_training/labels.txt")]
+fnames = ["{}/imgs/{}.png".format(fldr, line.strip().split()[0]) for line in open("{}/labels.txt".format(fldr))]
+labels = [norm_lbl([float(v) for v in line.strip().split()[1:]]) for line in open("{}/labels.txt".format(fldr))]
 images = [norm_img(Image.open(fname)) for fname in fnames]
 trainloader = torch.utils.data.DataLoader(list(zip(images, labels)), batch_size=8, shuffle=True, num_workers=2)
 print("Loaded Data")
@@ -38,7 +39,7 @@ class Net(nn.Module):
   def __init__(self):
     super(Net, self).__init__()
     #self.vpl = models.resnet18(pretrained=True)
-    self.vpl = models.squeezenet1_1(pretrained=True)
+    self.vpl = models.squeezenet1_1(pretrained=False)
     self.choice = "squeeze"
 
     self.fc1 = nn.Linear(512, 128)

@@ -1,4 +1,5 @@
 import cv2, os
+import random as r
 from tqdm import tqdm
 from robot import Robot
 
@@ -24,24 +25,40 @@ else:
   cam = cv2.VideoCapture(0)
 
 
-def capture(X = [-40, 40], Y = [240, 300], Z = [-40, 0], inc = 10):
+def capture(Xr = [-40, 40], Yr = [240, 300], Zr = [-40, 0], inc = 5, grid = True):
+  if grid:
+    X = list(range(Xr[0], Xr[1]+inc, inc))
+    Y = list(range(Yr[0], Yr[1]+inc, inc))
+    Z = list(range(Zr[0], Zr[1]+2*inc, 2*inc))
+  else:
+    X = [round(r.random()*(Xr[1]-Xr[0]) + Xr[0],1) \
+       for _ in range(int((Xr[1]-Xr[0])/inc))]
+    Y = [round(r.random()*(Yr[1]-Yr[0]) + Yr[0],1) \
+       for _ in range(int((Yr[1]-Yr[0])/inc))]
+    Z = [round(r.random()*(Zr[1]-Zr[0]) + Zr[0],1) \
+       for _ in range(int((Zr[1]-Zr[0])/inc))]
+    X.sort()
+    Y.sort()
+    Z.sort()
+
+
   if cam.isOpened():
     rbt = Robot()
 
-    os.makedirs("vision_training")
-    os.makedirs("vision_training/imgs")
-
-    labels = open("vision_training/labels.txt",'wt')
+    dir_name = "vision_training_{}".format("grid" if grid else "rand")
+    os.makedirs(dir_name)
+    os.makedirs("{}/imgs".format(dir_name))
+    labels = open("{}/labels.txt".format(dir_name),'wt')
 
     datum = 0
-    for x in tqdm(range(X[0], X[1]+inc, inc), ncols=50):
-      for y in tqdm(range(Y[0], Y[1]+inc, inc), ncols=50):
-        for z in range(Z[0], Z[1]+inc, inc):
+    for x in tqdm(X, ncols=50):
+      for y in tqdm(Y, ncols=50):
+        for z in Z:
           rbt.move(x,y,z)
           val, img = cam.read()
           if val:
-            cv2.imwrite('vision_training/imgs/{0:04d}.png'.format(datum),img)
-            labels.write(f"{datum:04d} {x:4.2f} {y:4.2f} {z:4.2f}\n")
+            cv2.imwrite(dir_name + '/imgs/{0:04d}.png'.format(datum),img)
+            labels.write("{:0:04d} {:4.2f} {:4.2f} {:4.2f}\n".format(datum, x,y,z))
             datum += 1
 
     labels.close()
