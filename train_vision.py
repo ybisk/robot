@@ -12,6 +12,7 @@ from torchvision import transforms as T
 
 fldr = sys.argv[1]
 print("Training with {}".format(fldr))
+device = torch. device("cuda:0" if torch. cuda. is_available() else "cpu")
 
 # [-40, 40], [240, 300], [-40, 0]
 ranges = np.array([80, 60, 40]).astype(np.float32)
@@ -69,6 +70,7 @@ class Net(nn.Module):
     return x
 
 net = Net()
+net.to(device)
 crit = nn.L1Loss() # MSELoss()
 optimizer = optim.Adam(net.parameters(), lr=5e-5)
 
@@ -77,14 +79,14 @@ for epoch in range(50):
   for i, data in tqdm(enumerate(trainloader, 0)):
     inputs, labels = data
     optimizer.zero_grad()
-    outputs = net(inputs)
-    loss = crit(outputs, labels)
+    outputs = net(inputs.to(device))
+    loss = crit(outputs, labels.to(device))
     loss.backward()
     optimizer.step()
 
-    running_loss += loss.item()
+    running_loss += loss.cpu().item()
     if i % 25 == 24:
       print('[{}, {:5d}] loss: {:.3f}'.format(epoch +1, i + 1, running_loss / 25)) 
       running_loss = 0.0
-      for l, o in zip(labels, outputs.detach().numpy()):
+      for l, o in zip(labels, outputs.detach().cpu().numpy()):
         print("{:5.2f} {:5.2f} {:5.2f} -- {:5.2f} {:5.2f} {:5.2f}".format(l[0], l[1], l[2], o[0], o[1], o[2]))
