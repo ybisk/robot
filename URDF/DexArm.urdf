@@ -1,0 +1,229 @@
+<robot name="DexArm_unofficial">
+  <!-- 
+    Components: 
+      - B_Fix       L27
+      - F_Rot       L41
+      - In_1        L64
+      - In_2        L111
+      - Out_1       L158
+      - Out_2       L182
+      - Join        L87
+      - EE          L134
+
+    Joints:
+      Bases:
+        - B_Fix -> B_Rot   [-110 deg, 110deg]           L56
+      Inner Arms:
+        - B_Rot -> In_1    [0, pi/2]                    L78
+        - In_1  -> Join    [mimic -1 * B_Rot -> In_1]   L101
+        - Join  -> I_2     [-0.6, 1.2]                  L125
+        - In_2  -> EE      [mimic -1 * Join  -> In_2]   L148
+      Outer Arms:
+        - Join  -> Out_1   [mimic  1 * B_Rot -> In_1]   L172
+        - Join  -> Out_2   [mimic  1 * Join  -> In_2]   L196
+  -->
+
+  <!-- Anchor and rotating base -->
+  <link name="B_Fix">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./STL/00-B_Fix.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./STL/00-B_Fix.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="B_Rot">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./STL/01-B_Rot.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./STL/01-B_Rot.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="bases" type="revolute">
+    <parent link="B_Fix" />
+    <child link="B_Rot" />
+    <limit effort="30" lower="-1.91986" upper="1.91986" velocity="1.74533" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <!-- Base to inner Arm 1 -->
+  <link name="In_1">
+    <visual>
+      <origin xyz="0 0.022 -0.127" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="./STL/02-In_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.022 -0.127" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./STL/02-In_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="B_Rot->In_1" type="revolute">
+    <parent link="B_Rot" />
+    <child link="In_1" />
+    <limit effort="30" lower="0" upper="1.57" velocity="1.74533" />
+    <origin xyz="0 -0.02 0.13" rpy="0 0 0"/>
+    <axis xyz="1 0 0" />
+  </joint>
+
+  <!-- Inner Arm 1 to Join -->
+  <link name="Join">
+    <visual>
+      <origin xyz="0 0.0332 -0.277" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="./STL/03-Join.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.0332 -0.277" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./STL/03-Join.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="In_1->Join" type="revolute">
+    <parent link="In_1" />
+    <child link="Join" />
+    <limit effort="30" lower="-1.57" upper="0" velocity="1.74533" />
+    <origin xyz="0 -0.0112 0.15" rpy="0 0 0"/>
+    <axis xyz="1 0 0" />
+    <mimic joint="B_Rot->In_1" multiplier="-1" offset="0" />
+  </joint>
+
+  <!-- Join to Inner Arm 2 -->
+  <link name="In_2">
+    <visual>
+      <origin xyz="0 0.034 -0.276" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./STL/04-In_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.033 -0.279" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./STL/04-In_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Join->In_2" type="revolute">
+    <parent link="Join" />
+    <child link="In_2" />
+    <limit effort="30" lower="-0.6" upper="1.2" velocity="1.74533" />
+    <origin xyz="0.0 -0.0003 -0.0003" rpy="0 0 0"/>
+    <axis xyz="1 0 0" />
+  </joint>
+
+  <!-- Inner arm 2 to end effector -->
+  <link name="EE">
+    <visual>
+      <origin xyz="0.0 0.172 -0.218" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="./STL/05-EE.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0 0.172 -0.215" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="./STL/05-EE.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="In_2->EE" type="revolute">
+    <parent link="In_2" />
+    <child link="EE" />
+    <origin xyz="0 -0.138 -0.058" rpy="0 0 0"/>
+    <axis xyz="1 0 0" />
+    <mimic joint="Join->In_2" multiplier="-1" offset="0" />
+  </joint>
+
+  <!-- The remaining components and joints are not functional -->
+  <!-- Base to outer Arm 1 -->
+  <link name="Out_1">
+    <visual>
+      <origin xyz="0 0.005 -0.301" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="./STL/06-Out_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.003 -0.305" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./STL/06-Out_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Join->Out_1" type="revolute">
+    <parent link="Join" />
+    <child link="Out_1" />
+    <limit effort="30" lower="0" upper="1.57" velocity="1.74533" />
+    <origin xyz="0 0.0285 0.024" rpy="0 0 0"/>
+    <axis xyz="1 0 0" />
+    <mimic joint="B_Rot->In_1" multiplier="1" offset="0" />
+  </joint>
+
+  <!-- Join to outer Arm 2 -->
+  <link name="Out_2">
+    <visual>
+      <origin xyz="0 0.058 -0.307" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="./STL/07-Out_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.057 -0.307" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="./STL/07-Out_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="Join->Out_2" type="revolute">
+    <parent link="Join" />
+    <child link="Out_2" />
+    <limit effort="30" lower="-0.6" upper="1.2" velocity="1.74533" />
+    <origin xyz="0 -0.024 0.0294" rpy="0 0 0"/>
+    <axis xyz="1 0 0" />
+    <mimic joint="Join->In_2" multiplier="1" offset="0" />
+  </joint>
+
+
+  <!-- Modules -->
+  <link name="Suction">
+    <visual>
+      <origin xyz="-0.077 -0.134 -0.003" rpy="0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M01-Suction.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.077 -0.134 -0.003" rpy="0 3.14 1.57"/>
+      <geometry>
+        <mesh filename="./STL/M01-Suction.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="EE->Suction" type="fixed">
+    <parent link="EE" />
+    <child link="Suction" />
+    <limit effort="30" lower="-0.6" upper="1.2" velocity="1.74533" />
+    <origin xyz="0 -0.05 0.01" rpy="0 0 0"/>
+    <axis xyz="1 0 0" />
+  </joint>
+
+</robot>
