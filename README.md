@@ -32,7 +32,7 @@ Execute [Wide Grid GCode](gcodes/WideGrid.gcode) or import two adjacent copies o
 - $659 USD for Base kit + $259 USD for [Pneumatic Gripper](https://www.rotrics.com/products/pneumatic-kit)
 
 **Blocks**
-Small blocks can me made by cutting up the remaining Dowel 
+Small blocks can me made by cutting up the remaining Dowel or via the 3D printer attachment
 
 **Overhead Light**
 Recommend some overhead or bar lamp lighting (minimal shadows) to evenly light the surface
@@ -40,13 +40,19 @@ Recommend some overhead or bar lamp lighting (minimal shadows) to evenly light t
 ## Arm Farm Compute
 **Computer**: 
 - $119.95 for a [Raspberry Pi 4](https://www.canakit.com/raspberry-pi-4-4gb.html) Kit with 4GB of RAM
-- $29.95 for [8mp Raspberry Pi Camera](https://www.canakit.com/raspberry-pi-noir-camera-v2-8mp.html)
-- $5.40 for [1meter camera cable](https://smile.amazon.com/gp/product/B07J57LQQS?pf_rd_r=XAAVCRCQN91EM9JG6Y1Q&pf_rd_p=5ae2c7f8-e0c6-4f35-9071-dc3240e894a8)
-- *Misc* $26.99 for [USB/Bluetooth Keyboard & Mouse](https://smile.amazon.com/gp/product/B07LH6TZSZ/ref=ppx_yo_dt_b_asin_title_o05_s00?ie=UTF8&psc=1)
-- *Misc* $84.99 for [Small touchscreen](https://smile.amazon.com/gp/product/B07L6WT77H/ref=ppx_yo_dt_b_asin_title_o05_s01?ie=UTF8&psc=1) is completely unnecessary
 
-*Cost*:
-$155.30 or ... more if you buy more stuff
+**Jetson Nano Option**:
+- $90.00 for [Jeton Nano](https://www.nvidia.com/en-us/autonomous-machines/jetson-store/)
+- $14.99 for [5V 6A 30W Power Supply ](https://smile.amazon.com/gp/product/B07QH3PL1Z/)
+- $7.50 -- $18.99 for [Micro SD](http://smile.amazon.com/gp/product/B0887GP791)
+
+**Camera and Accessories**: 
+- $29.95 for [8mp Raspberry Pi Camera](https://www.canakit.com/raspberry-pi-noir-camera-v2-8mp.html)
+- $5.40 for [1meter camera cable](https://smile.amazon.com/gp/product/B07J57LQQS)
+- *Misc* $26.99 for [USB/Bluetooth Keyboard & Mouse](https://smile.amazon.com/gp/product/B07LH6TZSZ)
+- *Misc* $84.99 for [Small touchscreen](https://smile.amazon.com/gp/product/B07L6WT77H) is completely unnecessary
+
+*Cost*: $150ish or ... more if you buy more stuff
 
 ## Camera Connect
 - *Cheap*: Tape or Zip-ties
