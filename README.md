@@ -62,9 +62,20 @@ Torchvision `git clone https://github.com/pytorch/vision.git -b v0.8.2; cd visio
 - $11.99 for 2-Pack [16x2 LCD Display](https://smile.amazon.com/gp/product/B07S7PJYM6/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&psc=1)
 
 Install drivers and see demo code:
-[LCD from RPi Guy](https://github.com/the-raspberry-pi-guy/lcd)
+[LCD from RPi Guy](https://github.com/the-raspberry-pi-guy/lcd) and `sudo apt install python3-smbus`
 
-Might want to try `sudo apt-get install i2c-tools`  and `sudo i2cdetect -y 1` to see i2c setup
+Might want to try `sudo apt-get install i2c-tools`  and `sudo i2cdetect -r -y 1` to see i2c setup
+
+Notes for Jetson Nano (WIP):
+In general things don't line up directly [NVIDIA Jetson Nano J41 Header Pinout](https://www.jetsonhacks.com/nvidia-jetson-nano-j41-header-pinout/).  Here we just have to re-orient:
+- GND = 6
+- VCC = 4
+- SDA = 3
+- SCL = 5
+- Code:
+  - `sudo i2cdetect -r -y 1` shows 27? Awesome.
+  - Set the `BUS_NUMBER=1` [LCD Driver](https://github.com/the-raspberry-pi-guy/lcd/blob/master/drivers/i2c_dev.py#L10) 
+  - Remove the RPi import. This won't work even if you install the library.
 
 ## Rotrics Code
 
