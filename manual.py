@@ -1,6 +1,7 @@
 import serial, time, sys
 from tqdm import tqdm, trange
 
+# https://manual.rotrics.com/get-start/rotary-module#2-g-code-commands-for-rotary-module
 
 ser = serial.Serial(port='/dev/ttyACM0', 
                     baudrate = 115200, 
@@ -45,6 +46,7 @@ send('G92.1') # Machine coordinate system
 
 send('G0 X0 Y200 Z0') # 0 200 0
 
+
 try: 
   while True:
       a = input("location: ")
@@ -56,6 +58,16 @@ try:
           send('M3 S5') # very light laser
       elif "off" in a:
         send('M888 P15') # turn off laser
+      
+      elif "rotary" in a:
+        send('M888 P6') # Set the current end effector as a rotary module and initialize it
+        send("M2100")   # Initialize the rotary module every time DexArm restarts
+      elif "pos" in a:
+        send("M2101")   # Read the current rotary position
+      elif "R" in a:
+        send(f"M2101 {a}") # Rotate n degrees in the clockwise direction
+      elif "P" in a:
+        send(f"M2101 {a}") # Rotate to position n degree
       elif "pick" in a:
         send("M1000") # air pump box to pump in
       elif "place" in a:
