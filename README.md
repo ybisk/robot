@@ -58,6 +58,14 @@ $155.30 or ... more if you buy more stuff
 
 Torchvision `git clone https://github.com/pytorch/vision.git -b v0.8.2; cd vision; sudo python3 setup.py install`
 
+## LCD Displays
+- $11.99 for 2-Pack [16x2 LCD Display](https://smile.amazon.com/gp/product/B07S7PJYM6/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&psc=1)
+
+Install drivers and see demo code:
+[LCD from RPi Guy](https://github.com/the-raspberry-pi-guy/lcd)
+
+Might want to try `sudo apt-get install i2c-tools`  and `sudo i2cdetect -y 1` to see i2c setup
+
 ## Rotrics Code
 
 `python manual.py` for issuing individual test commands
