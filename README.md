@@ -1,4 +1,4 @@
-The following are materials and setup instructions for a very simple educational "arm farm" based on a Rotrics DexArm and a Raspberry Pi.
+The following are materials and setup instructions for a very simple educational "arm farm" based on a Rotrics DexArm and a Raspberry Pi 4 or Jetson Nano 4GB.
 
 
 ## Arm Farm Hardware Setup
