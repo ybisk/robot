@@ -65,6 +65,9 @@ Recommend some overhead or bar lamp lighting (minimal shadows) to evenly light t
 Torchvision `git clone https://github.com/pytorch/vision.git -b v0.8.2; cd vision; sudo python3 setup.py install`
 
 ## LCD Displays
+
+<img src="images/LCD.png">
+
 - $11.99 for 2-Pack [16x2 LCD Display](https://smile.amazon.com/gp/product/B07S7PJYM6/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&psc=1)
 
 Install drivers and see demo code:
