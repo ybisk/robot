@@ -1,26 +1,29 @@
 <robot name="DexArm_unofficial">
   <!-- 
     Components: 
-      - B_Fix       L27
-      - F_Rot       L41
-      - In_1        L64
-      - In_2        L111
-      - Out_1       L158
-      - Out_2       L182
-      - Join        L87
-      - EE          L134
+      - B_Fix       L31
+      - F_Rot       L44
+      - In_1        L67
+      - In_2        L114
+      - Out_1       L161
+      - Out_2       L185
+      - Join        L90
+      - EE          L137
+    Modules: (Go to line and uncomment your choice)
+      - Suction     L209
+      - Gripper     L234
 
     Joints:
       Bases:
-        - B_Fix -> B_Rot   [-110 deg, 110deg]           L56
+        - B_Fix -> B_Rot   [-110 deg, 110deg]           L59
       Inner Arms:
-        - B_Rot -> In_1    [0, pi/2]                    L78
-        - In_1  -> Join    [mimic -1 * B_Rot -> In_1]   L101
-        - Join  -> I_2     [-0.6, 1.2]                  L125
-        - In_2  -> EE      [mimic -1 * Join  -> In_2]   L148
+        - B_Rot -> In_1    [0, pi/2]                    L81
+        - In_1  -> Join    [mimic -1 * B_Rot -> In_1]   L104
+        - Join  -> I_2     [-0.6, 1.2]                  L128
+        - In_2  -> EE      [mimic -1 * Join  -> In_2]   L151
       Outer Arms:
-        - Join  -> Out_1   [mimic  1 * B_Rot -> In_1]   L172
-        - Join  -> Out_2   [mimic  1 * Join  -> In_2]   L196
+        - Join  -> Out_1   [mimic  1 * B_Rot -> In_1]   L175
+        - Join  -> Out_2   [mimic  1 * Join  -> In_2]   L199
   -->
 
   <!-- Anchor and rotating base -->
@@ -204,6 +207,7 @@
 
 
   <!-- Modules -->
+  <!--
   <link name="Suction">
     <visual>
       <origin xyz="-0.077 -0.134 -0.003" rpy="0 3.14 1.57" />
@@ -224,6 +228,380 @@
     <limit effort="30" lower="-0.6" upper="1.2" velocity="1.74533" />
     <origin xyz="0 -0.05 0.01" rpy="0 0 0"/>
     <axis xyz="1 0 0" />
+  </joint> 
+  -->
+
+  <link name="GripperMount">
+    <visual>
+      <origin xyz="-0.077 -0.134 -0.003" rpy="0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperMount.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.077 -0.134 -0.003" rpy="0 3.14 1.57"/>
+      <geometry>
+        <mesh filename="./STL/M02-GripperMount.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="EE->GripperMount" type="fixed">
+    <parent link="EE" />
+    <child link="GripperMount" />
+    <limit effort="30" lower="-0.6" upper="1.2" velocity="1.74533" />
+    <origin xyz="0 -0.05 0.01" rpy="0 0 0"/>
+    <axis xyz="1 0 0" />
   </joint>
 
+  <link name="GripperAxis">
+    <visual>
+      <origin xyz="-0.075 -0.075 -0.000" rpy="0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperAxis.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.075 -0.075 -0.000" rpy="0 3.14 1.57"/>
+      <geometry>
+        <mesh filename="./STL/M02-GripperAxis.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperMount->GripperAxis" type="continuous">
+    <parent link="GripperMount" />
+    <child link="GripperAxis" />
+    <limit effort="30" velocity="1.74533" />
+    <origin xyz="-0.002 -0.06 0.0" rpy="0 0 0"/>
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="GripperFingerA1">
+    <visual>
+      <origin xyz="-0.054 -0.075 0.036" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.054 -0.075 0.036" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperAxis->GripperFingerA1" type="fixed">
+    <parent link="GripperAxis" />
+    <child link="GripperFingerA1" />
+    <limit effort="30" velocity="1.74533" />
+    <origin xyz="-0.020 0.00 -0.042" rpy="0 0 0"/>
+    <axis xyz="0 0 1" />
+  </joint>
+  <link name="GripperFingerA2">
+    <visual>
+      <origin xyz="-0.057 -0.075 0.0440" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.057 -0.075 0.0440" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerA1->GripperFingerA2" type="revolute">
+    <parent link="GripperFingerA1" />
+    <child link="GripperFingerA2" />
+    <limit effort="30" lower="-0.3" upper="0.0" velocity="1.74533" />
+    <origin xyz="0.003 0.00 -0.008" rpy="0 0 0"/>
+    <axis xyz="0 1 0" />
+  </joint>
+  <link name="GripperFingerA3">
+    <visual>
+      <origin xyz="-0.0575 -0.075 0.0510" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.0575 -0.075 0.0510" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerA2->GripperFingerA3" type="revolute">
+    <parent link="GripperFingerA2" />
+    <child link="GripperFingerA3" />
+    <limit effort="30" lower="-0.3" upper="0.0" velocity="1.74533" />
+    <origin xyz="0.0005 0.00 -0.007" rpy="0 0 0"/>
+    <axis xyz="0 1 0" />
+    <mimic joint="GripperFingerA1->GripperFingerA2" multiplier="1" offset="0" />
+  </joint>
+  <link name="GripperFingerA4">
+    <visual>
+      <origin xyz="-0.0580 -0.075 0.0580" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.0580 -0.075 0.0580" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerA3->GripperFingerA4" type="revolute">
+    <parent link="GripperFingerA3" />
+    <child link="GripperFingerA4" />
+    <limit effort="30" lower="-0.3" upper="0.0" velocity="1.74533" />
+    <origin xyz="0.0005 0.00 -0.007" rpy="0 0 0"/>
+    <axis xyz="0 1 0" />
+    <mimic joint="GripperFingerA1->GripperFingerA2" multiplier="1" offset="0" />
+  </joint>
+  <link name="GripperFingerA5">
+    <visual>
+      <origin xyz="-0.0585 -0.075 0.0650" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.0585 -0.075 0.0650" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerA4->GripperFingerA5" type="revolute">
+    <parent link="GripperFingerA4" />
+    <child link="GripperFingerA5" />
+    <limit effort="30" lower="-0.3" upper="0.0" velocity="1.74533" />
+    <origin xyz="0.0005 0.00 -0.007" rpy="0 0 0"/>
+    <axis xyz="0 1 0" />
+    <mimic joint="GripperFingerA1->GripperFingerA2" multiplier="1" offset="0" />
+  </joint>
+
+  <link name="GripperFingerB1">
+    <visual>
+      <origin xyz="-0.038 0.084 0.036" rpy="0.0 3.14 5.76" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.038 0.084 0.036" rpy="0.0 3.14 5.76" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperAxis->GripperFingerB1" type="fixed">
+    <parent link="GripperAxis" />
+    <child link="GripperFingerB1" />
+    <limit effort="30" velocity="1.74533" />
+    <origin xyz="0.010 0.018 -0.042" rpy="0 0 0.0"/>
+    <axis xyz="0 0 1" />
+  </joint>
+  <link name="GripperFingerB2">
+    <visual>
+      <origin xyz="0.0616 0.0710 0.044" rpy="0.0 3.14 4.66" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0616 0.0710 0.044" rpy="0.0 3.14 4.66" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerB1->GripperFingerB2" type="revolute">
+    <parent link="GripperFingerB1" />
+    <child link="GripperFingerB2" />
+    <limit effort="30" lower="0.0" upper="0.3" velocity="1.74533" />
+    <origin xyz="-0.003 -0.003 -0.008" rpy="0 0 1.1"/>
+    <axis xyz="0 1 0" />
+    <mimic joint="GripperFingerA1->GripperFingerA2" multiplier="-1" offset="0" />
+  </joint>
+  <link name="GripperFingerB3">
+    <visual>
+      <origin xyz="0.0616 0.0710 0.050" rpy="0.0 3.14 4.66" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0616 0.0710 0.050" rpy="0.0 3.14 4.66" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerB2->GripperFingerB3" type="revolute">
+    <parent link="GripperFingerB2" />
+    <child link="GripperFingerB3" />
+    <limit effort="30" lower="0" upper="0.3" velocity="1.74533" />
+    <origin xyz="-0.000 -0.000 -0.006" rpy="0 0 0.0"/>
+    <axis xyz="0 1 0" />
+    <mimic joint="GripperFingerA1->GripperFingerA2" multiplier="-1" offset="0" />
+  </joint>
+  <link name="GripperFingerB4">
+    <visual>
+      <origin xyz="0.0611 0.0710 0.057" rpy="0.0 3.14 4.66" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0611 0.0710 0.057" rpy="0.0 3.14 4.66" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerB3->GripperFingerB4" type="revolute">
+    <parent link="GripperFingerB3" />
+    <child link="GripperFingerB4" />
+    <limit effort="30" lower="0." upper="0.3" velocity="1.74533" />
+    <origin xyz="0.0005 0.00 -0.007" rpy="0 0 0.0"/>
+    <axis xyz="0 1 0" />
+    <mimic joint="GripperFingerA1->GripperFingerA2" multiplier="-1" offset="0" />
+  </joint>
+  <link name="GripperFingerB5">
+    <visual>
+      <origin xyz="0.0607 0.0710 0.0641" rpy="0.0 3.14 4.66" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.0607 0.0710 0.0641" rpy="0.0 3.14 4.66" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerB4->GripperFingerB5" type="revolute">
+    <parent link="GripperFingerB4" />
+    <child link="GripperFingerB5" />
+    <limit effort="30" lower="0" upper="0.3" velocity="1.74533" />
+    <origin xyz="0.0005 0.00 -0.007" rpy="0 0 0"/>
+    <axis xyz="0 1 0" />
+    <mimic joint="GripperFingerA1->GripperFingerA2" multiplier="-1" offset="0" />
+  </joint>
+
+  <link name="GripperFingerC1">
+    <visual>
+      <origin xyz="0.093 -0.010 0.036" rpy="0.0 3.14 3.67" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.054 0.075 0.036" rpy="0.0 3.14 3.67" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperAxis->GripperFingerC1" type="fixed">
+    <parent link="GripperAxis" />
+    <child link="GripperFingerC1" />
+    <limit effort="30" velocity="1.74533" />
+    <origin xyz="0.010 -0.017 -0.042" rpy="0 0 0"/>
+    <axis xyz="0 0 1" />
+  </joint>
+  <link name="GripperFingerC2">
+    <visual>
+      <origin xyz="-0.0555 -0.0753 0.0440" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.0555 -0.0753 0.0440" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerC1->GripperFingerC2" type="revolute">
+    <parent link="GripperFingerC1" />
+    <child link="GripperFingerC2" />
+    <limit effort="30" lower="-0.3" upper="0" velocity="1.74533" />
+    <origin xyz="0.00 0.00 -0.008" rpy="0 0 2.1"/>
+    <axis xyz="0 1 0" />
+    <mimic joint="GripperFingerA1->GripperFingerA2" multiplier="1" offset="0" />
+  </joint>
+  <link name="GripperFingerC3">
+    <visual>
+      <origin xyz="-0.0560 -0.0753 0.0500" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.0560 -0.0753 0.0500" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerC2->GripperFingerC3" type="revolute">
+    <parent link="GripperFingerC2" />
+    <child link="GripperFingerC3" />
+    <limit effort="30" lower="-0.3" upper="0.0" velocity="1.74533" />
+    <origin xyz="0.0005 0.00 -0.006" rpy="0 0 0"/>
+    <axis xyz="0 1 0" />
+    <mimic joint="GripperFingerA1->GripperFingerA2" multiplier="1" offset="0" />
+  </joint>
+  <link name="GripperFingerC4">
+    <visual>
+      <origin xyz="-0.0565 -0.0753 0.0570" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.0565 -0.0753 0.0570" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerC3->GripperFingerC4" type="revolute">
+    <parent link="GripperFingerC3" />
+    <child link="GripperFingerC4" />
+    <limit effort="30" lower="-0.3" upper="0.0" velocity="1.74533" />
+    <origin xyz="0.0005 0.00 -0.007" rpy="0 0 0"/>
+    <axis xyz="0 1 0" />
+    <mimic joint="GripperFingerA1->GripperFingerA2" multiplier="1" offset="0" />
+  </joint>
+  <link name="GripperFingerC5">
+    <visual>
+      <origin xyz="-0.0570 -0.0753 0.0640" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.0570 -0.0753 0.0640" rpy="0.0 3.14 1.57" />
+      <geometry>
+        <mesh filename="./STL/M02-GripperFinger5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="GripperFingerC4->GripperFingerC5" type="revolute">
+    <parent link="GripperFingerC4" />
+    <child link="GripperFingerC5" />
+    <limit effort="30" lower="-0.3" upper="0.0" velocity="1.74533" />
+    <origin xyz="0.0005 0.00 -0.007" rpy="0 0 0"/>
+    <axis xyz="0 1 0" />
+    <mimic joint="GripperFingerA1->GripperFingerA2" multiplier="1" offset="0" />
+  </joint>
+  
 </robot>
