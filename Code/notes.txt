@@ -1,0 +1,9 @@
+https://learn.adafruit.com/adafruit-i2s-mems-microphone-breakout
+arecord -D plughw:0 -c1 -r 48000 -f S32_LE -t wav -V mono -v file.wav
+
+https://learn.adafruit.com/adafruit-agc-electret-microphone-amplifier-max9814/wiring-and-test
+
+
+`sudo apt install portaudio19-dev`
+`pip3 install pyaudio`
+https://raspberrypi.stackexchange.com/questions/70897/help-reading-audio-data-from-i2s-microphones
